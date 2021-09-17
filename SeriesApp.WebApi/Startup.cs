@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using SeriesApp.WebApi.Models;
 
 namespace SeriesApp.WebApi
 {
@@ -25,6 +27,9 @@ namespace SeriesApp.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+               services.AddDbContext<DataContext>(
+                x => x.UseSqlServer(Configuration.GetConnectionString("AvaliaSerieConnection"))
+                                              ); //esta buscando no arquivo de configução appsetting.json uma ConnectionString com o nome "AvaliaSerieConnection"
             services.AddControllers();
         }
 
